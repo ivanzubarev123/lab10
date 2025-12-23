@@ -1,0 +1,20 @@
+@startuml
+actor ПреподавательActor as "Преподаватель"
+
+participant Teacher
+participant Course
+participant Student
+participant Grade
+
+ПреподавательActor -> Teacher : assignGrade(student, course, value)
+Teacher -> Course : checkEnrollment(student)
+
+alt Студент записан
+    Teacher -> Grade : create(value, date)
+    Grade -> Student : addGrade(grade)
+    Grade -> Course : attachGrade(grade)
+    Teacher -> Student : notifyGradeAssigned()
+else Студент не записан
+    Teacher -> Teacher : showError()
+end
+@enduml

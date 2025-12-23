@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+
+actor Студент
+actor Преподаватель
+actor Администратор
+
+rectangle "Подсистема академического управления" {
+
+  Студент -- (Register for course)
+  Студент -- (Drop course)
+  Студент -- (View grades)
+  Студент -- (View schedule)
+
+  Преподаватель -- (Teach course)
+  Преподаватель -- (Assign grade)
+  Преподаватель -- (View student list)
+
+  (Register for course) .> (Check course availability) : <<include>>
+  (Assign grade) .> (Select student) : <<include>>
+}
+
+rectangle "Подсистема расписаний" {
+
+  Администратор -- (Generate schedule)
+  Администратор -- (Assign auditorium)
+  Администратор -- (Modify schedule)
+
+  (Generate schedule) .> (Assign auditorium) : <<include>>
+  (Modify schedule) .> (Notify participants) : <<extend>>
+}
+
+rectangle "Подсистема управления университетом" {
+
+  Администратор -- (Manage faculties)
+  Администратор -- (Manage departments)
+  Администратор -- (Enroll student)
+  Администратор -- (Assign rector)
+
+}
+@enduml
